@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yogesh Kumar - CSIR-CEERI Certificate Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* Header / Hero Section */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .badge-verified {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* Main Content Grid */
+        .content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* Left Side Details */
+        .details-section h2 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .info-group {
+            margin-bottom: 16px;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .info-value.highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Right Side Certificate Preview */
+        .certificate-preview {
+            background: var(--bg-body);
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cert-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        /* Actions Section */
+        .actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-body);
+        }
+
+        /* Modal for Viewing Certificate */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+
+            .header {
+                padding: 25px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="badge-verified">
+                <i class="fa-solid fa-circle-check"></i> Verified Credential
+            </div>
+            <h1>Semiconductor High-Impact Learning Program (SHILP)</h1>
+            <p>CSIR - Central Electronics Engineering Research Institute (CEERI), Pilani</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Details Section -->
+            <section class="details-section">
+                <h2>Certificate Details</h2>
+                
+                <div class="info-group">
+                    <div class="info-label">Recipient</div>
+                    <div class="info-value">Yogesh Kumar</div>
+                </div>
+
+                <div class="info-group">
+                    <div class="info-label">Institution</div>
+                    <div class="info-value">GLA University, Mathura (B.Tech)</div>
+                </div>
+
+                <div class="info-group">
+                    <div class="info-label">Issuing Authority</div>
+                    <div class="info-value">CSIR - CEERI, Pilani (Rajasthan)</div>
+                </div>
+
+                <div class="info-group">
+                    <div class="info-label">Program Name</div>
+                    <div class="info-value highlight">SDP Training: Semiconductor High-Impact Learning Program (SHILP)</div>
+                </div>
+
+                <div class="info-group">
+                    <div class="info-label">Duration</div>
+                    <div class="info-value">01 June 2026 – 12 June 2026</div>
+                </div>
+
+                <div class="info-group">
+                    <div class="info-label">Date of Issue</div>
+                    <div class="info-value">12.06.2026</div>
+                </div>
+            </section>
+
+            <!-- Interactive Preview Side -->
+            <section class="certificate-preview">
+                <i class="fa-solid fa-award cert-icon"></i>
+                <h3 style="margin-bottom: 8px;">Official Certificate Document</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                    Issued by CSIR-CEERI Skill Development Unit under the leadership of Dr. P.C. Panchariya (Director) & Sh. Ashok Chauhan (Head, SDU).
+                </p>
+
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="openModal()">
+                        <i class="fa-solid fa-eye"></i> View Original
+                    </button>
+                    <!-- Replace 'CEERI_CERTIFICATE.pdf' with your hosted file path -->
+                    <a href="CEERI CERTIFICATE.pdf" download class="btn btn-secondary">
+                        <i class="fa-solid fa-download"></i> Download PDF
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Previewing -->
+    <div class="modal" id="certModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 style="margin-bottom: 15px;">Certificate Document</h3>
+            <!-- For PDF view integration or Image view -->
+            <iframe src="CEERI_CERTIFICATE.pdf" width="100%" height="450px" style="border: none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('certModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('certModal').style.display = 'none';
+        }
+
+        // Close modal on clicking outside content
+        window.onclick = function(event) {
+            const modal = document.getElementById('certModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
